@@ -1,7 +1,7 @@
 # WatermarkCreator
 
 
-
+![](https://raw.githubusercontent.com/ashishbhandari/WatermarkCreator/master/screenshots/watermark_creator.gif)
 
 
 ## License
