@@ -17,6 +17,7 @@ public class OverlayCreatorTask extends AsyncTask<Void, Void, Bitmap> {
     private float mScale = 0.5f;
     private int mTopOffset = 0;
     private int mLeftOffset = 0;
+    private int mAlpha = 0;
     private OnMergeListener mMergeListener;
 
     /**
@@ -29,6 +30,12 @@ public class OverlayCreatorTask extends AsyncTask<Void, Void, Bitmap> {
         this.mScale = scale;
         return this;
     }
+
+    public OverlayCreatorTask setAlpha(int alpha) {
+        this.mAlpha = alpha;
+        return this;
+    }
+
 
     /**
      * Sets the base bitmap image.
@@ -90,10 +97,10 @@ public class OverlayCreatorTask extends AsyncTask<Void, Void, Bitmap> {
 
 
     private Bitmap overlayBitmapFromTopLeft() {
-        return overlayBitmaps(mBaseBitmap, mMergeBitmap, mScale, mLeftOffset, mTopOffset);
+        return overlayBitmaps(mBaseBitmap, mMergeBitmap, mScale, mLeftOffset, mTopOffset, mAlpha);
     }
 
-    private static Bitmap overlayBitmaps(Bitmap baseBitmap, Bitmap overlayBitmap, float scale, int leftOffset, int topOffset) {
+    private static Bitmap overlayBitmaps(Bitmap baseBitmap, Bitmap overlayBitmap, float scale, int leftOffset, int topOffset, int alpha) {
 
         if (scale > 0) {
             Bitmap overlayScaled = Bitmap.createScaledBitmap(overlayBitmap, (int) (overlayBitmap.getWidth() * scale), (int) (overlayBitmap.getHeight() * scale), true);
@@ -101,7 +108,9 @@ public class OverlayCreatorTask extends AsyncTask<Void, Void, Bitmap> {
             Bitmap workingBitmap = Bitmap.createBitmap(baseBitmap);
             Bitmap mutableBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
             Canvas canvas = new Canvas(mutableBitmap);
-            canvas.drawBitmap(overlayScaled, leftOffset, topOffset, new Paint());
+            Paint paint = new Paint();
+            paint.setAlpha(alpha);
+            canvas.drawBitmap(overlayScaled, leftOffset, topOffset, paint);
             return mutableBitmap;
         } else {
             return baseBitmap;

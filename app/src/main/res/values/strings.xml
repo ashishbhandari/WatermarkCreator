@@ -6,6 +6,7 @@
     <string name="from_top">From Top: %d px</string>
 
     <string name="scale_factor" formatted="false">Scale factor: %.2f</string>
+    <string name="opacity_factor" formatted="false">Opacity factor: %d</string>
     <string name="no_text_to_convert">No text to convert!</string>
     <string name="overlay_text">Overlay text</string>
 

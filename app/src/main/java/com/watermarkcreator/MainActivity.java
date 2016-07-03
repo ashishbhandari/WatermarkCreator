@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView baseImageView;
 
     private int mFromTop = 0, mFromLeft = 0;
+    private int mAlpha = 255;
     private float mScale = 0.5f;
     private OverlayCreatorTask mOverlayBitmapTask;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.convert_text_to_bmp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String waterMarkText = waterMark.getText().toString();
                 if (waterMarkText != null && !waterMarkText.equals("")) {
                     placeTextOnImage(waterMarkText);
@@ -104,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         int maxHeight = getDimens(R.id.image_holder)[1];
 
         SeekBar leftSeek = (SeekBar) findViewById(R.id.left_seek);
-
         leftSeek.setMax(maxWidth);
         leftSeek.setProgress(mFromLeft);
 
@@ -112,13 +113,18 @@ public class MainActivity extends AppCompatActivity {
         fromTopSeek.setMax(maxHeight);
         fromTopSeek.setProgress(mFromTop);
 
-        SeekBar scaleSeekbar = (SeekBar) findViewById(R.id.scale_size);
-        scaleSeekbar.setProgress((int) (mScale * 100));
+        SeekBar scaleSeekBar = (SeekBar) findViewById(R.id.scale_size);
+        scaleSeekBar.setProgress((int) (mScale * 100));
+
+        SeekBar opacitySeekBar = (SeekBar) findViewById(R.id.opacity_seek);
+        opacitySeekBar.setProgress(mAlpha);
 
         ((TextView) findViewById(R.id.left_label)).setText(getString(R.string.from_left, mFromLeft));
         ((TextView) findViewById(R.id.top_label)).setText(getString(R.string.from_top, mFromTop));
 
         ((TextView) findViewById(R.id.scale_label)).setText(getString(R.string.scale_factor, mScale));
+
+        ((TextView) findViewById(R.id.opacity_label)).setText(getString(R.string.opacity_factor, mAlpha));
 
 
         leftSeek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -161,13 +167,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        scaleSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        scaleSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                 mScale = progress / 100f;
 
                 ((TextView) findViewById(R.id.scale_label)).setText(getString(R.string.scale_factor, mScale));
+                invalidateOverlay();
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        opacitySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                mAlpha = progress;
+
+                ((TextView) findViewById(R.id.opacity_label)).setText(getString(R.string.opacity_factor, mAlpha));
                 invalidateOverlay();
 
             }
@@ -252,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
         WaterMarkCreator.createBuilder().setText(text)
                 .setTextMaxWidth((int) convertDpToPixel(dimens[0], MainActivity.this))
-                .setTextSize((int) (110))
+                .setTextSize((int) (210))
                 .setTextColor(Color.RED).build().setListener(new WaterMarkCreator.OnDecodeListener() {
             @Override
             public void onDecode(WaterMarkCreator task, Bitmap bitmap) {
@@ -277,8 +305,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             SeekBar fromLeftSeek = (SeekBar) findViewById(R.id.left_seek);
-
-
             fromLeftSeek.setMax(maxWidth);
             fromLeftSeek.setProgress(mFromLeft);
 
@@ -305,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .setScale(mScale)
                     .setOffsets(mFromLeft, mFromTop)
+                    .setAlpha(mAlpha)
                     .overlay();
 
         } else {
