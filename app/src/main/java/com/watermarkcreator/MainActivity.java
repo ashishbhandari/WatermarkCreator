@@ -22,9 +22,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.watermarkcreator.util.BitmapDecoderTask;
-import com.watermarkcreator.util.OverlayCreatorTask;
-import com.watermarkcreator.util.WaterMarkCreator;
+import com.watermarkcreator.library.BitmapDecoderTask;
+import com.watermarkcreator.library.OverlayCreatorTask;
+import com.watermarkcreator.library.WaterMarkCreator;
 
 
 /**
@@ -339,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
                 baseImageView.setImageBitmap(mSourceBitmap);
             }
             if (mWatermarkBitmap != null) {
+                Toast.makeText(this, "Base Image required first!", Toast.LENGTH_SHORT).show();
                 baseImageView.setImageBitmap(mWatermarkBitmap);
             }
         }

@@ -1,4 +1,4 @@
-package com.watermarkcreator.util;
+package com.watermarkcreator.library;
 
 import android.graphics.Bitmap;
 import android.os.AsyncTask;

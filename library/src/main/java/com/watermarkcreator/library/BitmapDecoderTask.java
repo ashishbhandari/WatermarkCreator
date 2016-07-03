@@ -1,4 +1,4 @@
-package com.watermarkcreator.util;
+package com.watermarkcreator.library;
 
 import android.content.ContentResolver;
 import android.content.res.Resources;

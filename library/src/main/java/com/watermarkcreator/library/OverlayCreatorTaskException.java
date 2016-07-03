@@ -1,4 +1,4 @@
-package com.watermarkcreator.util;
+package com.watermarkcreator.library;
 
 /**
  * Created by b_ashish on 29-Jun-16.
