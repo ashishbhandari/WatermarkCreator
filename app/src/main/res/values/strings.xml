@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">WatermarkCreator</string>
+
+
+    <string name="from_left">From Left: %d px</string>
+    <string name="from_top">From Top: %d px</string>
+
+    <string name="scale_factor" formatted="false">Scale factor: %.2f</string>
+    <string name="no_text_to_convert">No text to convert!</string>
+    <string name="overlay_text">Overlay text</string>
+
+</resources>
