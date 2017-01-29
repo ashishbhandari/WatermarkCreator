@@ -12,6 +12,10 @@ import java.io.InputStream;
 
 /**
  * Created by b_ashish on 29-Jun-16.
+ *
+ * For referene check originally created:
+ * https://github.com/sharish/BitmapMerger/blob/master/app/src/main/java/com/cooltechworks/bitmapmerger/tasks/BitmapDecoderTask.java
+ *
  */
 public class BitmapDecoderTask extends AsyncTask<Void, Void, Bitmap> {
 
